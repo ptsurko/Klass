@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <script type="text/javascript" src="klass.js"></script>
+    <script type="text/javascript">
+        var Derived = Class.extend({
+            a: 10,
+            initialize: function(a) {
+                this.a = a || 10;
+            },
+            do : function() {
+
+            }
+        });
+
+        assert(Derived.prototype.constructor === Derived);
+
+        var d = new Derived(1234);
+        assert(d instanceof Derived);
+        assert(d instanceof Class);
+
+        var Derived2 = Derived.extend({
+            b: 10,
+            initialize: function(b, a) {
+                this.b = b;
+                this.super.initialize.call(this, a);
+            },
+            do2: function() {}
+        });
+
+        assert(Derived2.prototype.constructor === Derived2);
+
+        var d2 = new Derived2(1234, 5678);
+        assert(d2 instanceof Derived2);
+        assert(d2 instanceof Derived);
+        assert(d2 instanceof Class);
+
+        function assert(condition, message) {
+            if (!condition) {
+                throw message || "Assertion failed";
+            }
+        }
+    </script>
+</body>
+</html>
